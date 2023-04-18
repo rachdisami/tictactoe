@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>[ x ] Tic-Tac-Toe</title>
+  </head>
+  <body
+    class="position-relative flex flex-align-items-center flex-center flex-direction-column"
+  >
+    <!-- Main START -->
+    <main class="">
+      <div class="container">
+        <div class="grid tictactoe-grid">
+          <div
+            class="grid-span-2 control flex flex-align-items-end"
+            data-id="player-turn-display"
+          >
+            <p
+              class="text-title flex flex-align-items-center gap-1 text-accent-500"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              Player 1, Turn!
+            </p>
+          </div>
+          <div class="control flex flex-align-items-end flex-end">
+            <button
+              class="menu-control text-label position-relative flex flex-align-items-center gap-1"
+              data-id="menu-control"
+              area-expanded="false"
+              area-controls="menu-control-container"
+            >
+              actions
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+
+              <div
+                class="menu-control-container flex flex-direction-column"
+                id="menu-control-container"
+                data-id="menu-control-container"
+                data-state="closed"
+              >
+                <a href="#" data-id="reset">rest game</a>
+                <a href="#" data-id="new-round">new round</a>
+              </div>
+            </button>
+          </div>
+          <button class="square" id="1" data-id="square"></button>
+          <button class="square" id="2" data-id="square"></button>
+          <button class="square" id="3" data-id="square"></button>
+          <button class="square" id="4" data-id="square"></button>
+          <button class="square" id="5" data-id="square"></button>
+          <button class="square" id="6" data-id="square"></button>
+          <button class="square" id="7" data-id="square"></button>
+          <button class="square" id="8" data-id="square"></button>
+          <button class="square" id="9" data-id="square"></button>
+          <div
+            class="score shadow-1 flex flex-center flex-align-items-center bg-accent-300 text-accent-800 flex-direction-column"
+          >
+            <spam class="text-label">Player 1</spam>
+            <h4 class="text-headline" data-id="player1-score">0</h4>
+          </div>
+          <div
+            class="score shadow-1 flex flex-center flex-align-items-center bg-tertiary-300 text-tertiary-800 flex-direction-column"
+          >
+            <spam class="text-label">Ties</spam>
+            <h4 class="text-headline" data-id="ties-score">0</h4>
+          </div>
+          <div
+            class="score shadow-1 flex flex-center flex-align-items-center bg-primary-500 text-primary-800 flex-direction-column"
+          >
+            <spam class="text-label">Player 2</spam>
+            <h4 class="text-headline" data-id="player2-score">0</h4>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Main END -->
+
+    <!-- Footer Start -->
+    <footer class="position-absolute position-bottom-0">
+      <div class="flex flex-end mt-900 py-600">
+        <p class="text-body">
+          Coded with <span class="text-tertiary-400">♥</span> by
+          <a href="#" class="text-primary-600">@acousticpeepo</a>
+        </p>
+      </div>
+    </footer>
+    <!-- Footer END -->
+
+    <!-- modal Start -->
+    <div class="modal" data-id="modal-container" data-state="closed">
+      <div class="py-600 px-600 bg-neutral-300 shadow-5 border-radius">
+        <div class="flex modal-content flex-direction-column gap-5">
+          <div class="flex flex-align-items-start modal-title">
+            <h2 class="text-display grow-1 mr-900">Game Over</h2>
+            <button area-controls="modal-container" data-id="modal-close-btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="modal-body py-400" data-id="modal-body"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal END -->
+
+    <!-- Scripts -->
+    <script src="./js/app.js" type="module"></script>
+  </body>
+</html>
