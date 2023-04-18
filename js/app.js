@@ -18,36 +18,24 @@ function init() {
   const view = new View();
   const store = new Store("tictactoe-storage-key", players);
 
-  function initView() {
-    view.closeModal();
-    view.resetBoard();
-    view.updateScoreboard(store.stats);
-
-    view.initializeMoves(store.game.moves);
-  }
-
   window.addEventListener("storage", (event) => {
-    initView();
+    view.render(store.game, store.stats);
   });
 
-  initView();
+  view.render(store.game, store.stats);
 
   view.bindGameResetEvent((event) => {
     event.preventDefault();
 
     store.reset();
-    initView();
-
-    view.setTurnDisplay(players[store.game.currentPlayer.id - 1]);
+    view.render(store.game, store.stats);
   });
 
   view.bindNewRoundEvent((event) => {
     event.preventDefault();
 
     store.newRound();
-    initView();
-
-    view.setTurnDisplay(players[store.game.currentPlayer.id - 1]);
+    view.render(store.game, store.stats);
   });
 
   view.bindPLayerMoveEvent((square) => {
@@ -57,21 +45,10 @@ function init() {
 
     if (existingMove) return;
 
-    // place mark on square
-    view.handlePlayerMove(square, store.game.currentPlayer);
-
     // Advance to the Next move abd update current player
     store.playerMove(+square.id);
 
-    // Check for Game Over
-    if (store.game.status.isComplete) {
-      view.openModal(store.game.status.winner);
-
-      return;
-    }
-
-    // Set the player turn indicator
-    view.setTurnDisplay(store.game.currentPlayer);
+    view.render(store.game, store.stats);
   });
 }
 

@@ -110,7 +110,29 @@ export default class View {
     });
   }
 
-  openModal(winner) {
+  render(game, stats) {
+    const { playersWithStats, ties } = stats;
+    const {
+      moves,
+      currentPlayer,
+      status: { isComplete, winner },
+    } = game;
+
+    this.#closeModal();
+    this.#resetBoard();
+
+    this.#updateScoreboard(playersWithStats, ties);
+    this.#initializeMoves(moves);
+
+    if (isComplete) {
+      this.#openModal(winner);
+      return;
+    }
+
+    this.#setTurnDisplay(currentPlayer);
+  }
+
+  #openModal(winner) {
     this.$.modal.setAttribute("data-state", "opened");
     if (winner != null) {
       this.$.modalBody.innerHTML = `
@@ -127,32 +149,32 @@ export default class View {
     }
   }
 
-  updateScoreboard(stats) {
-    for (const playerWithStats of stats.playersWithStats) {
+  #updateScoreboard(playersWithStats, ties) {
+    for (const playerWithStats of playersWithStats) {
       const playerScore = this.$.playerScores[playerWithStats.id - 1];
       playerScore.innerText = playerWithStats.wins;
     }
 
-    this.$.tiesScores.innerText = stats.ties;
+    this.$.tiesScores.innerText = ties;
   }
 
-  closeModal() {
+  #closeModal() {
     this.$.modal.setAttribute("data-state", "closed");
   }
 
-  resetBoard() {
+  #resetBoard() {
     this.$.playerTurnDisplay.innerHTML = this.$.playerControlHtml[0];
     this.$$.squares.forEach((square) => {
       square.innerHTML = "";
     });
   }
 
-  initializeMoves(moves) {
+  #initializeMoves(moves) {
     this.$$.squares.forEach((square) => {
       const existingMove = moves.find((move) => +square.id === move.squareId);
 
       if (existingMove) {
-        this.handlePlayerMove(square, existingMove.player);
+        this.#handlePlayerMove(square, existingMove.player);
       }
     });
   }
@@ -173,11 +195,11 @@ export default class View {
     );
   }
 
-  handlePlayerMove(square, player) {
+  #handlePlayerMove(square, player) {
     square.innerHTML = this.$.icon[player.id - 1];
   }
 
-  setTurnDisplay(player) {
+  #setTurnDisplay(player) {
     this.$.playerTurnDisplay.innerHTML =
       this.$.playerControlHtml[player.id - 1];
   }
