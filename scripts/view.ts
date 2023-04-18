@@ -251,11 +251,17 @@ export default class View {
     el: Element,
     selector: string,
     eventKey: string,
-    handler: (target: Element) => void
+    handler: (el: Element) => void
   ) {
     el.addEventListener(eventKey, (event) => {
-      if ((event.target as HTMLElement).matches(selector)) {
-        handler(event.target as Element);
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        throw new Error("Event Target Not Found!");
+      }
+
+      if (target.matches(selector)) {
+        handler(target);
       }
     });
   }
