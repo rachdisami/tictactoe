@@ -22,20 +22,22 @@ function init() {
     view.render(store.game, store.stats);
   });
 
+  store.addEventListener("statechange", () => {
+    view.render(store.game, store.stats);
+  });
+
   view.render(store.game, store.stats);
 
   view.bindGameResetEvent((event) => {
     event.preventDefault();
 
     store.reset();
-    view.render(store.game, store.stats);
   });
 
   view.bindNewRoundEvent((event) => {
     event.preventDefault();
 
     store.newRound();
-    view.render(store.game, store.stats);
   });
 
   view.bindPLayerMoveEvent((square) => {
@@ -47,8 +49,6 @@ function init() {
 
     // Advance to the Next move abd update current player
     store.playerMove(+square.id);
-
-    view.render(store.game, store.stats);
   });
 }
 
