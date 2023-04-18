@@ -3,6 +3,7 @@ export default class View {
   $$ = {};
 
   constructor() {
+    this.$.grid = this.#qs('[data-id="main-grid"]');
     this.$.dropMenu = this.#qs('[data-id="menu-control"]');
     this.$.resetBtn = this.#qs('[data-id="reset"]');
     this.$.newRoundBtn = this.#qs('[data-id="new-round"]');
@@ -105,9 +106,10 @@ export default class View {
   }
 
   bindPLayerMoveEvent(handler) {
-    this.$$.squares.forEach((square) => {
-      square.addEventListener("click", () => handler(square));
-    });
+    // this.$$.squares.forEach((square) => {
+    //   square.addEventListener("click", () => handler(square));
+    // });
+    this.#delegate(this.$.grid, '[data-id="square"]', "click", handler);
   }
 
   render(game, stats) {
@@ -224,5 +226,22 @@ export default class View {
     }
 
     return elList;
+  }
+
+  /**
+   * we're using a delegate to put an event on parent object
+   * and check if the children that get caught while adding that event
+   * matches the provided selector
+   * @param {*} el : The DOM element to put the vent on
+   * @param {*} selector : Selector for the children that will get caught
+   * @param {*} eventKey : What event to add ex: 'click'
+   * @param {*} handler : callback function
+   */
+  #delegate(el, selector, eventKey, handler) {
+    el.addEventListener(eventKey, (event) => {
+      if (event.target.matches(selector)) {
+        handler(event.target);
+      }
+    });
   }
 }
