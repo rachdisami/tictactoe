@@ -1,0 +1,25 @@
+{
+  "name": "tictactoe",
+  "version": "0.0.1",
+  "description": "A Simple Tic-Tac-Toe Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachdisami/tictactoe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rachdisami/tictactoe/issues"
+  },
+  "homepage": "https://rachdisami.github.io/tictactoe",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
+}
