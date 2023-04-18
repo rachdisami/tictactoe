@@ -98,16 +98,16 @@ export default class View {
     });
   }
 
-  bindGameResetEvent(handler: EventListener) {
+  bindGameResetEvent(handler: EventListener): void {
     (this.$.resetBtn as Element).addEventListener("click", handler);
     (this.$.modalCloseBtn as Element).addEventListener("click", handler);
   }
 
-  bindNewRoundEvent(handler: EventListener) {
+  bindNewRoundEvent(handler: EventListener): void {
     (this.$.newRoundBtn as Element).addEventListener("click", handler);
   }
 
-  bindPLayerMoveEvent(handler: (square: Element) => void) {
+  bindPLayerMoveEvent(handler: (square: Element) => void): void {
     // this.$$.squares.forEach((square) => {
     //   square.addEventListener("click", () => handler(square));
     // });
@@ -119,7 +119,7 @@ export default class View {
     );
   }
 
-  render(game: Game, stats: GameStats) {
+  render(game: Game, stats: GameStats): void {
     const { playersWithStats, ties } = stats;
     const {
       moves,
@@ -141,7 +141,7 @@ export default class View {
     this.#setTurnDisplay(currentPlayer);
   }
 
-  #openModal(winner: Player | null) {
+  #openModal(winner: Player | null): void {
     (this.$.modal as Element).setAttribute("data-state", "opened");
     if (winner != null) {
       (this.$.modalBody as Element).innerHTML = `
@@ -158,7 +158,7 @@ export default class View {
     }
   }
 
-  #updateScoreboard(playersWithStats: PlayersWithStats[], ties: number) {
+  #updateScoreboard(playersWithStats: PlayersWithStats[], ties: number): void {
     for (const playerWithStats of playersWithStats) {
       const playerScore: Element = (this.$.playerScores as Element[])[
         playerWithStats.id - 1
@@ -169,11 +169,11 @@ export default class View {
     (this.$.tiesScores as Element).textContent = ties.toString();
   }
 
-  #closeModal() {
+  #closeModal(): void {
     (this.$.modal as Element).setAttribute("data-state", "closed");
   }
 
-  #resetBoard() {
+  #resetBoard(): void {
     (this.$.playerTurnDisplay as Element).innerHTML = (
       this.$.playerControlHtml as string[]
     )[0];
@@ -182,7 +182,7 @@ export default class View {
     });
   }
 
-  #initializeMoves(moves: GameMove[]) {
+  #initializeMoves(moves: GameMove[]): void {
     this.$$.squares.forEach((square: Element) => {
       const existingMove = moves.find((move) => +square.id === move.squareId);
 
@@ -192,7 +192,7 @@ export default class View {
     });
   }
 
-  #toggleMenu() {
+  #toggleMenu(): void {
     let menuMenuContainerState: string = (
       this.$.menuContainer as Element
     ).getAttribute("data-state") as string;
@@ -208,11 +208,11 @@ export default class View {
     );
   }
 
-  #handlePlayerMove(square: Element, player: Player) {
+  #handlePlayerMove(square: Element, player: Player): void {
     square.innerHTML = (this.$.icon as string[])[player.id - 1];
   }
 
-  #setTurnDisplay(player: Player) {
+  #setTurnDisplay(player: Player): void {
     (this.$.playerTurnDisplay as Element).innerHTML = (
       this.$.playerControlHtml as string[]
     )[player.id - 1];
@@ -252,7 +252,7 @@ export default class View {
     selector: string,
     eventKey: string,
     handler: (el: Element) => void
-  ) {
+  ): void {
     el.addEventListener(eventKey, (event) => {
       const target = event.target;
 
